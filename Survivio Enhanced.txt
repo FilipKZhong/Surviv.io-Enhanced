@@ -4,6 +4,7 @@
 // @icon         https://surviv.io/favicon.ico
 // @description  Surviv.io Enhanced
 // @author       Filip K Zhõng
+// @namespace    SurvivEnhanced
 
 // Extra Info
 // Made by: Filip K. Zhõng
