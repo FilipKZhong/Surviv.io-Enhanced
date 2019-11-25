@@ -1,0 +1,576 @@
+// ==UserScript==
+// @name         Survivio | Enhanced |
+// @version      0.0.6
+// @icon         https://surviv.io/favicon.ico
+// @description  Surviv.io Enhanced
+// @author       Filip K Zhõng
+
+// Extra Info
+// Made by: Filip K. Zhõng
+// Version: 0.0.6
+// For: Surviv.io
+
+// Support Server: https://discordapp.com/invite/AHZYHxV
+
+// - Note:
+    // Only works for Surviv.io official proxy
+
+// - Note:
+    // 3rd party extensions (or code changes) is not official or supported by the developers of the game,
+    // they take no responsibility for 3rd party and doesn't recommend it neither, 
+    // all usage of it is on own risk and extensions that gives you a advantage is not allowed!
+
+// <========== MATCH ==========> \\
+
+// @match        http://surviv.io/*
+// @match        https://surviv.io/*
+// @match        http://surviv.io/?region=na&zone=sfo
+// @match        http://surviv.io/?region=na&zone=mia
+// @match        http://surviv.io/?region=na&zone=nyc
+// @match        http://surviv.io/?region=na&zone=chi
+// @match        http://surviv.io/?region=sa&zone=sao
+// @match        http://surviv.io/?region=eu&zone=fra
+// @match        http://surviv.io/?region=eu&zone=waw
+// @match        http://surviv.io/?region=as&zone=sgp
+// @match        http://surviv.io/?region=as&zone=nrt
+// @match        http://surviv.io/?region=as&zone=hkg
+// @match        http://surviv.io/?region=kr&zone=sel
+// @match        https://surviv.io/?region=na&zone=sfo
+// @match        https://surviv.io/?region=na&zone=mia
+// @match        https://surviv.io/?region=na&zone=nyc
+// @match        https://surviv.io/?region=na&zone=chi
+// @match        https://surviv.io/?region=sa&zone=sao
+// @match        https://surviv.io/?region=eu&zone=fra
+// @match        https://surviv.io/?region=eu&zone=waw
+// @match        https://surviv.io/?region=as&zone=sgp
+// @match        https://surviv.io/?region=as&zone=nrt
+// @match        https://surviv.io/?region=as&zone=hkg
+// @match        https://surviv.io/?region=kr&zone=sel
+// @match        http://surviv2.io*
+// @match        https://surviv2.io*
+// @match        http://2dbattleroyale.com*
+// @match        https://2dbattleroyale.com*
+// @match        http://2dbattleroyale.org*
+// @match        https://2dbattleroyale.org*
+// @match        http://piearesquared.info*
+// @match        https://piearesquared.info*
+// @match        http://thecircleisclosing.com*
+// @match        https://thecircleisclosing.com*
+// @match        http://archimedesofsyracuse.info*
+// @match        https://archimedesofsyracuse.info*
+// @match        http://secantsecant.com*
+// @match        https://secantsecant.com*
+// @match        http://parmainitiative.com*
+// @match        https://parmainitiative.com*
+// @match        http://nevelskoygroup.com*
+// @match        https://nevelskoygroup.com*
+// @match        http://kugahi.com*
+// @match        https://kugahi.com*
+// @match        http://chandlertallowmd.com*
+// @match        https://chandlertallowmd.com*
+// @match        http://ot38.club*
+// @match        https://ot38.club*
+// @match        http://kugaheavyindustry.com*
+// @match        https://kugaheavyindustry.com*
+// @match        http://rarepotato.com*
+// @match        https://rarepotato.com*
+// @match        http://twitch.tv/popout/survivio/extensions/c79geyxwmp1zpas3qxbddzrtytffta/panel*
+// @match        https://twitch.tv/popout/survivio/extensions/c79geyxwmp1zpas3qxbddzrtytffta/panel*
+// @match        http://c79geyxwmp1zpas3qxbddzrtytffta.ext-twitch.tv/c79geyxwmp1zpas3qxbddzrtytffta/1.0.2/ce940530af57d2615ac39c266fe9679d/index_twitch.html?anchor=panel&language=en&mode=viewer&state=released&platform=web&popout=true*
+// @match        https://c79geyxwmp1zpas3qxbddzrtytffta.ext-twitch.tv/c79geyxwmp1zpas3qxbddzrtytffta/1.0.2/ce940530af57d2615ac39c266fe9679d/index_twitch.html?anchor=panel&language=en&mode=viewer&state=released&platform=web&popout=true*
+
+
+// @grant        none
+
+// ==/UserScript==
+
+// <---------- Notes ----------> \\
+// mapIds;
+// 0 - Normal
+// 1 - Desert [desertMode]
+// 2 - Woods [woodsMode]
+// 3 - 50v50 [factionMode]
+// 4 - Potato [potatoMode]
+// 5 - Savannah [sniperMode]
+// 6 - Halloween [N/A]
+
+// getGameModeStyles;
+// 1 - solo
+// 2 - duo
+// 4 - squad
+
+// <---------- End ----------> \\
+
+
+
+// <========== GUN ==========> \\
+
+(function() {
+    'use strict';
+
+    var elems = document.getElementsByClassName('ui-weapon-name')
+
+    console.log(elems);
+
+    for (var ii = 0; ii < elems.length; ii++) {
+
+        elems[ii].addEventListener('DOMSubtreeModified', function() {
+            var weaponName = this.textContent;
+            var border = 'solid';
+
+            switch (weaponName) {
+
+                // <---------- Default ----------> \\
+
+                default: border = '#ffffff';
+                border = 'solid';
+                break;
+
+                // <---------- Melees ----------> \\
+
+
+                case 'Fists':
+                        border += '#ffffff';
+                    break;
+
+                case 'Bayonet':
+                        border += '#615338 ';
+                    break;
+
+                case 'Bayonet Rugged':
+                        border += '#6C6C6E';
+                    break;
+
+                case 'Bayonet Woodland':
+                        border += '#75B11B';
+                    break;
+
+                case 'Blood Axe':
+                        border += '#3D9503';
+                    break;
+
+                case 'Bonesaw':
+                        border += '#461904';
+                    break;
+
+                case 'Bowie Vintage':
+                        border += '#A1A1A1';
+                    break;
+
+                case 'Bowie Frontier':
+                        border += '#9A4726';
+                    break;
+
+                case 'Fire Axe':
+                        border += '#9D0000';
+                    break;
+
+                case 'Hook':
+                        border += '#646464';
+                    break;
+
+                case 'Huntsman Rugged':
+                        border += '#555A5A';
+                    break;
+
+                case 'Huntsman Burnished':
+                        border += '#D5CB6F';
+                    break;
+
+                case 'Karambit':
+                        border += '#13173A';
+                    break;
+
+                case 'Karambit Prismatic':
+                        border += '#28DA8A';
+                    break;
+
+                case 'Karambit Drowned':
+                        border += '#00BACF';
+                    break;
+
+                case 'Katana':
+                        border += '#646667';
+                    break;
+
+                case 'Katana Rusted':
+                        border += '#916A42';
+                    break;
+
+                case 'Katana Orchid':
+                        border += '#D6A5E3';
+                    break;
+
+                case 'Knuckles':
+                        border += '#90710F';
+                    break;
+
+                case 'Knuckles Heroic':
+                        border += '#DEBA28';
+                    break;
+
+                case 'Knuckles Rusted':
+                        border += '#825836';
+                    break;
+
+                case 'Kukri':
+                        border += '#1958D5';
+                    break;
+
+                case 'Machete':
+                        border += '#8E0000';
+                    break;
+
+                case 'Naginata':
+                        border += '#3C3C3C';
+                    break;
+
+                case 'Pan':
+                        border += '#444444';
+                    break;
+
+                case 'Sledgehammer':
+                        border += '#4F5152';
+                    break;
+
+                case 'Stonehammer':
+                        border += '#797B7C';
+                    break;
+
+                case 'Wood Axe':
+                        border += '#76787A';
+                    break;
+
+                    // <---------- YELLOW: 9mm ----------> \\
+
+                case 'CZ-3A1':
+                        case 'G18C':
+                        case 'M9':
+                        case 'M93R':
+                        case 'MAC-10':
+                        case 'MP5':
+                        case 'P30L':
+                        case 'Dual P30L':
+                        case 'UMP9':
+                        case 'Vector':
+                        case 'VSS':
+                        border += '#FFAE00';
+                    break;
+
+                    // <---------- RED: 12 Gauge ----------> \\
+
+                case 'M1100':
+                        case 'M870':
+                        case 'MP220':
+                        case 'Saiga-12':
+                        case 'SPAS-12':
+                        case 'Super 90':
+                        case 'USAS-12':
+                        border += '#FF0000';
+                    break;
+
+                    // <---------- BLUE: 7.62 mm ----------> \\
+
+                case 'AK-47':
+                        case 'AN-94':
+                        case 'BAR M1918':
+                        case 'BLR 81':
+                        case 'DP-28':
+                        case 'Groza':
+                        case 'Groza-S':
+                        case 'M1 Garand':
+                        case 'M39 EMR':
+                        case 'Mosin-Nagant':
+                        case 'OT-38':
+                        case 'OTs-38':
+                        case 'PKP Pecheneg':
+                        case 'SCAR-H':
+                        case 'SV-98':
+                        case 'SVD-63':
+                        border += '#0066FF';
+                    break;
+
+                    // <---------- GREEN: 5.56mm ----------> \\
+
+                case 'FAMAS':
+                        case 'L86A2':
+                        case 'M249':
+                        case 'M416':
+                        case 'M4A1-S':
+                        case 'Mk 12 SPR':
+                        case 'QBB-97':
+                        case 'Scout Elite':
+                        border += '#039E00';
+                    break;
+
+                    // <---------- Purple: .45 ACP ----------> \\
+
+                case 'M1911':
+                        case 'M1A1':
+                        case 'Mk45G':
+                        case 'Model 94':
+                        case 'Peacemaker':
+                        case 'Vector 45'
+
+                        : border += '#7900FF';
+                    break;
+
+                    // <---------- FLARE ----------> \\
+
+                case 'Flare Gun':
+                        border += '#D44600';
+                    break;
+
+                    // <---------- .50 AE ----------> \\
+
+                case 'DEagle 50':
+                        border += '#292929';
+                    break;
+
+                    // <---------- .308 Subsonic ----------> \\
+
+                case 'AWM-S':
+                        case 'Mk 20 SSR'
+
+                        : border += '#465000';
+                    break;
+
+                    // <---------- Potato ----------> \\
+
+                case 'Potato Cannon'
+
+                    :
+                        border += '#935924';
+                    break;
+
+                    // <---------- CURSED: 9 mm ----------> \\
+                case 'M9 Cursed'
+
+                    :
+                        border += '#323232';
+                    break;
+
+                    // <---------- Trowables ----------> \\
+
+                case 'Frag':
+                        border += '#837516';
+                    break;
+
+                case 'MIRV':
+                        border += '#940000';
+                    break;
+
+                case 'Potato':
+                        border += '#958359';
+                    break;
+
+                case 'Smoke':
+                        border += '#DDDDDD';
+                    break;
+
+                case 'Snowball':
+                        border += '#74D4F8';
+                    break;
+
+                case 'Strobe':
+                        border += '#FFF205';
+                    break;
+
+                case 'Iron Bomb':
+                        border += '#FFF205';
+                    break;
+
+
+            }
+
+            // <---------- GUN END ----------> \\
+
+            console.log(border);
+
+            this.parentNode.style.border = border;
+        }, false);
+    }
+})();
+
+// <========== ARMOR ==========> \\
+
+(function() {
+    'use strict';
+
+    var elems = document.getElementsByClassName('ui-armor-level');
+    console.log(elems);
+
+    for (var ii = 0; ii < elems.length; ii++) {
+
+        elems[ii].addEventListener('DOMSubtreeModified', function() {
+            var armorlv = this.textContent;
+            var border = 'solid';
+
+            switch (armorlv) {
+
+                default: border = '#000000';
+                border = 'solid';
+                break;
+
+                case 'Lvl. 0':
+                        border += '#ffffff';
+                    break;
+
+                case 'Lvl. 1':
+                        border += '#ffffff';
+                    break;
+
+                case 'Lvl. 2':
+                        border += '#808080';
+                    break;
+
+                case 'Lvl. 3':
+                        border += '#0C0C0C';
+                    break;
+
+                case 'Lvl. 4':
+                        border += '#FFF00F';
+                    break;
+
+            }
+
+            console.log(border);
+
+            this.parentNode.style.border = border;
+        }, false);
+    }
+})();
+
+// <========== HUD END ==========> \\
+
+// <========== Streamer Mode ==========> \\
+
+(function() {
+    'use strict';
+
+    setInterval(function() {
+
+// <---------- Squad Fix ---------->
+
+        if(document.querySelector(`#btn-start-team`)) document.querySelector(`#btn-start-team`).style.display = `block`;
+
+// <---------- Surviv-Related Ads AdBlock ---------->
+
+        let blurElements_ad = document.querySelectorAll(`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90`);
+        for(let i = 0; i < blurElements_ad.length; i++) blurElements_ad[i].style.filter = `blur(10px)`;
+
+
+// <---------- Streamers;Youtuber ---------->
+
+        let blurElements = document.querySelectorAll(`#team-url, #team-code, .account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
+
+        for(let i = 0; i < blurElements.length; i++) blurElements[i].style.filter = `blur(10px)`;
+
+        let removeShadowElements = document.querySelectorAll(`#news-block, #social-share-block, #start-menu, #team-menu`);
+        for(let i = 0; i < removeShadowElements.length; i++) removeShadowElements[i].style.boxShadow = ``;
+
+    });
+})();
+// <========== Streamer Mode End ==========> \\
+
+// <========== Buttons ==========> \\
+
+// <---------- Function DUO ---------->
+
+(function () {
+'use strict';
+function DUO(){
+document.getElementById("btn-create-team").click();
+    setTimeout(function(){
+document.getElementById("btn-team-queue-mode-1").click();
+document.getElementById("btn-team-fill-none").click();
+document.getElementById("btn-start-team").click();
+}
+,750);
+
+}
+
+// <---------- Function DUO ---------->
+
+// <---------- DUO Button ---------->
+    var SoloDuo = document.createElement("button");
+  SoloDuo.innerHTML = "Play Solo 'Duo'";
+  SoloDuo.setAttribute("id", "btn-start-solo btns-quick-start");
+  SoloDuo.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
+
+//height: 40px;
+//width: 128px;
+
+SoloDuo;{
+  SoloDuo.style.align = "center";
+  SoloDuo.style.background = "#50AFAB";
+  SoloDuo.style.border = "#408E8B";
+  SoloDuo.style.color = "#E5F1F0";
+  SoloDuo.style.cursor = "pointer";
+  SoloDuo.style.width = "50%";
+  SoloDuo.style.radius = "15px";
+  SoloDuo.style.shadow = "0 5px #408E8B";
+        }
+// <---------- DUO Button ---------->
+
+// <---------- DUO Button Click ---------->
+
+  window.myFunc = function () {
+  DUO();
+  };
+  SoloDuo.addEventListener('click', window.myFunc);
+  document.getElementById("btns-quick-start").parentNode.appendChild(SoloDuo);
+    var reference = document.getElementById('btn-help');
+reference.parentNode.insertBefore(SoloDuo, reference);
+})();
+
+// <---------- DUO Button Click ---------->
+(function () {
+'use strict';
+function SQUAD(){
+document.getElementById("btn-create-team").click();
+    setTimeout(function(){
+document.getElementById("btn-team-queue-mode-2").click();
+document.getElementById("btn-team-fill-none").click();
+document.getElementById("btn-start-team").click();
+}
+,750);
+
+}
+
+// <---------- Function SQUAD ---------->
+
+// <---------- SQUAD Button ---------->
+    var SoloSquad = document.createElement("button");
+  SoloSquad.innerHTML = "Play Solo 'Squad'";
+  SoloSquad.setAttribute("id", "btn-start-solo btns-quick-start");
+  SoloSquad.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
+
+//height: 40px;
+//width: 128px;
+
+SoloSquad;{
+  SoloSquad.style.align = "center";
+  SoloSquad.style.background = "#50AFAB";
+  SoloSquad.style.border = "#408E8B";
+  SoloSquad.style.color = "#E5F1F0";
+  SoloSquad.style.cursor = "pointer";
+  SoloSquad.style.width = "50%";
+  SoloSquad.style.radius = "15px";
+  SoloSquad.style.shadow = "0 5px #408E8B";
+        }
+// <---------- SQUAD Button ---------->
+
+// <---------- SQUAD Button Click ---------->
+
+  window.myFunc = function () {
+  SQUAD();
+  };
+  SoloSquad.addEventListener('click', window.myFunc);
+  document.getElementById("btns-quick-start").parentNode.appendChild(SoloSquad);
+    var reference = document.getElementById('btn-help');
+reference.parentNode.insertBefore(SoloSquad, reference);
+})();
+// <========== Buttons END==========> \\
+
+// <-########## SCRIPT END ##########->
