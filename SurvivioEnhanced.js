@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Survivio | Enhanced |
-// @version      0.0.7
+// @version      0.0.8
 // @icon         https://surviv.io/favicon.ico
 // @description  Surviv.io Enhanced
 // @author       Filip K Zhõng
@@ -8,7 +8,7 @@
 
 // Extra Info
 // Made by: Filip K. Zhõng
-// Version: 0.0.7
+// Version: 0.0.8
 // For: Surviv.io
 
 // Support Server: https://discordapp.com/invite/AHZYHxV
@@ -430,7 +430,7 @@
         }, false);
     }
 })();
-
+// <========== ARMOR END ==========> \\
 // <========== HUD END ==========> \\
 // <========== Streamer Mode ==========> \\
 
@@ -441,7 +441,7 @@
         
 // <---------- Party Fix ---------->
         
-        if(document.querySelector(`#btn-start-team`)) document.querySelector(`#btn-start-team`).style.display = `block`;
+        if(document.querySelector(`#btn-start-team`)) document.querySelector(`#btn-start-team`).style.display = "block";
         
 // <---------- Surviv-Related Ads AdBlock ---------->
         
@@ -450,21 +450,26 @@
     // <---Ads Div ID--->
         
         // <---Game Page--->
-        (`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90, #ad-block-top`)
+        (`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90, #ad-block-top, #surviv-io_300x250_2, #surviv-io_300x250_mobile_2`);
         //#surviv-io_728x90_Leaderboard, #surviv-io_300x250_leaderboard, #surviv-io_728x90_playerprofile, #surviv-io_300x250_playerprofile
         //<---Ads Div ID END--->
-        for(let i = 0; i < blurElements_ad.length; i++) blurElements_ad[i].style.filter = `blur(10px)`;
+        for(let i = 0; i < blurElements_ad.length; i++)
+        blurElements_ad[i].style.filter = "blur(10px) opacity(75%)";
         
 // <---------- Partys & Others ---------->
 
+        document.querySelector(`#background, #modal-customize`).style.filter = "";
+
         let blurElements = document.querySelectorAll(`#team-url, #team-code,`); //.account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
         
-        for(let i = 0; i < blurElements.length; i++) blurElements[i].style.filter = `blur(10px)`;
+        for(let i = 0; i < blurElements.length; i++)
+        blurElements[i].style.filter = "blur(10px)";
         
 // <---------- Shadow optimizations ---------->
 
         let removeShadowElements = document.querySelectorAll(`#news-block, #social-share-block, #start-menu, #team-menu`);
-        for(let i = 0; i < removeShadowElements.length; i++) removeShadowElements[i].style.boxShadow = ``;
+        for(let i = 0; i < removeShadowElements.length; i++)
+        removeShadowElements[i].style.boxShadow = "";
         
     });
 })();
@@ -492,7 +497,6 @@ document.getElementById("btn-start-team").click();
   SoloDuo.innerHTML = "Play Solo 'Duo'";
   SoloDuo.setAttribute("id", "btn-start-solo btns-quick-start");
   SoloDuo.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
-
 //height: 40px;
 //width: 128px;
 
