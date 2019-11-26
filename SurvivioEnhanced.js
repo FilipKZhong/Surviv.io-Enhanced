@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Survivio | Enhanced |
-// @version      0.0.6
+// @version      0.0.7
 // @icon         https://surviv.io/favicon.ico
 // @description  Surviv.io Enhanced
 // @author       Filip K Zhõng
@@ -8,18 +8,19 @@
 
 // Extra Info
 // Made by: Filip K. Zhõng
-// Version: 0.0.6
+// Version: 0.0.7
 // For: Surviv.io
 
 // Support Server: https://discordapp.com/invite/AHZYHxV
 
 // - Note:
-    // Only works for Surviv.io official proxy
-
-// - Note:
     // 3rd party extensions (or code changes) is not official or supported by the developers of the game,
-    // they take no responsibility for 3rd party and doesn't recommend it neither, 
-    // all usage of it is on own risk and extensions that gives you a advantage is not allowed!
+    // they take no responsibility for 3rd party and doesn't recommend it neither,
+    // all usage of it is on own risk and extensions THAT GIVES YOU A ADVANTAGE is not allowed!
+// - Disclaim:
+    // This script doesn't contain any hackusations, or code that gives you a unfair advantage
+    // The adblur in this script still supports the game, as the ads still appear (even if they are blured out)
+    // This script is used through tampermonkey or resource override, if the game patches it, deal with it, it's not a vanilla!
 
 // <========== MATCH ==========> \\
 
@@ -100,150 +101,143 @@
 // 2 - duo
 // 4 - squad
 
-// <---------- End ----------> \\
-
-
-
-// <========== GUN ==========> \\
+// <========== GUN HUD ==========> \\
 
 (function() {
     'use strict';
-
     var elems = document.getElementsByClassName('ui-weapon-name')
-
     console.log(elems);
-
+    
     for (var ii = 0; ii < elems.length; ii++) {
-
         elems[ii].addEventListener('DOMSubtreeModified', function() {
+                
             var weaponName = this.textContent;
             var border = 'solid';
-
+                
             switch (weaponName) {
-
+                
                 // <---------- Default ----------> \\
-
+                
                 default: border = '#ffffff';
                 border = 'solid';
                 break;
-
+                
                 // <---------- Melees ----------> \\
-
-
+                
                 case 'Fists':
-                        border += '#ffffff';
-                    break;
-
+                border += '#ffffff';
+                break;
+                
                 case 'Bayonet':
-                        border += '#615338 ';
-                    break;
-
+                border += '#615338 ';
+                break;
+                
                 case 'Bayonet Rugged':
-                        border += '#6C6C6E';
-                    break;
-
+                border += '#6C6C6E';
+                break;
+                
                 case 'Bayonet Woodland':
-                        border += '#75B11B';
-                    break;
-
+                border += '#75B11B';
+                break;
+                
                 case 'Blood Axe':
-                        border += '#3D9503';
-                    break;
-
+                border += '#3D9503';
+                break;
+                
                 case 'Bonesaw':
-                        border += '#461904';
-                    break;
-
+                border += '#461904';
+                break;
+                
                 case 'Bowie Vintage':
-                        border += '#A1A1A1';
-                    break;
-
+                border += '#A1A1A1';
+                break;
+                
                 case 'Bowie Frontier':
-                        border += '#9A4726';
-                    break;
-
+                border += '#9A4726';
+                break;
+                
                 case 'Fire Axe':
-                        border += '#9D0000';
-                    break;
-
+                border += '#9D0000';
+                break;
+                
                 case 'Hook':
-                        border += '#646464';
-                    break;
-
+                border += '#646464';
+                break;
+                
                 case 'Huntsman Rugged':
-                        border += '#555A5A';
-                    break;
-
+                border += '#555A5A';
+                break;
+                
                 case 'Huntsman Burnished':
-                        border += '#D5CB6F';
-                    break;
-
+                border += '#D5CB6F';
+                break;
+                
                 case 'Karambit':
-                        border += '#13173A';
-                    break;
-
+                border += '#13173A';
+                break;
+                
                 case 'Karambit Prismatic':
-                        border += '#28DA8A';
-                    break;
-
+                border += '#28DA8A';
+                break;
+                
                 case 'Karambit Drowned':
-                        border += '#00BACF';
-                    break;
-
+                border += '#00BACF';
+                break;
+                
                 case 'Katana':
-                        border += '#646667';
-                    break;
-
+                border += '#646667';
+                break;
+                
                 case 'Katana Rusted':
-                        border += '#916A42';
-                    break;
-
+                border += '#916A42';
+                break;
+                
                 case 'Katana Orchid':
-                        border += '#D6A5E3';
-                    break;
-
+                border += '#D6A5E3';
+                break;
+                
                 case 'Knuckles':
-                        border += '#90710F';
-                    break;
-
+                border += '#90710F';
+                break;
+                
                 case 'Knuckles Heroic':
-                        border += '#DEBA28';
-                    break;
-
+                border += '#DEBA28';
+                break;
+                
                 case 'Knuckles Rusted':
-                        border += '#825836';
-                    break;
-
+                border += '#825836';
+                break;
+                
                 case 'Kukri':
-                        border += '#1958D5';
-                    break;
-
+                border += '#1958D5';
+                break;
+                
                 case 'Machete':
-                        border += '#8E0000';
-                    break;
-
+                border += '#8E0000';
+                break;
+                
                 case 'Naginata':
-                        border += '#3C3C3C';
-                    break;
-
+                border += '#3C3C3C';
+                break;
+                
                 case 'Pan':
-                        border += '#444444';
-                    break;
-
+                border += '#444444';
+                break;
+                
                 case 'Sledgehammer':
-                        border += '#4F5152';
-                    break;
-
+                border += '#4F5152';
+                break;
+                
                 case 'Stonehammer':
-                        border += '#797B7C';
-                    break;
-
+                border += '#797B7C';
+                break;
+                
                 case 'Wood Axe':
-                        border += '#76787A';
-                    break;
-
+                border += '#76787A';
+                break;
+                    
                     // <---------- YELLOW: 9mm ----------> \\
-
+                    
                 case 'CZ-3A1':
                         case 'G18C':
                         case 'M9':
@@ -256,10 +250,10 @@
                         case 'Vector':
                         case 'VSS':
                         border += '#FFAE00';
-                    break;
-
+                break;
+                        
                     // <---------- RED: 12 Gauge ----------> \\
-
+                        
                 case 'M1100':
                         case 'M870':
                         case 'MP220':
@@ -268,10 +262,10 @@
                         case 'Super 90':
                         case 'USAS-12':
                         border += '#FF0000';
-                    break;
-
+                break;
+                        
                     // <---------- BLUE: 7.62 mm ----------> \\
-
+                        
                 case 'AK-47':
                         case 'AN-94':
                         case 'BAR M1918':
@@ -289,10 +283,10 @@
                         case 'SV-98':
                         case 'SVD-63':
                         border += '#0066FF';
-                    break;
-
+                break;
+                        
                     // <---------- GREEN: 5.56mm ----------> \\
-
+                        
                 case 'FAMAS':
                         case 'L86A2':
                         case 'M249':
@@ -302,98 +296,93 @@
                         case 'QBB-97':
                         case 'Scout Elite':
                         border += '#039E00';
-                    break;
-
+                break;
+                        
                     // <---------- Purple: .45 ACP ----------> \\
-
+                        
                 case 'M1911':
                         case 'M1A1':
                         case 'Mk45G':
                         case 'Model 94':
                         case 'Peacemaker':
-                        case 'Vector 45'
-
-                        : border += '#7900FF';
-                    break;
-
+                        case 'Vector 45':
+                        border += '#7900FF';
+                break;
+                        
                     // <---------- FLARE ----------> \\
-
+                        
                 case 'Flare Gun':
-                        border += '#D44600';
-                    break;
-
+                border += '#D44600';
+                break;
+                    
                     // <---------- .50 AE ----------> \\
-
+                    
                 case 'DEagle 50':
-                        border += '#292929';
-                    break;
-
+                border += '#292929';
+                break;
+                    
                     // <---------- .308 Subsonic ----------> \\
-
+                    
                 case 'AWM-S':
-                        case 'Mk 20 SSR'
-
-                        : border += '#465000';
-                    break;
-
+                case 'Mk 20 SSR':
+                border += '#465000';
+                break;
+                    
                     // <---------- Potato ----------> \\
-
-                case 'Potato Cannon'
-
-                    :
-                        border += '#935924';
-                    break;
-
+                    
+                case 'Potato Cannon':
+                border += '#935924';
+                break;
+                    
                     // <---------- CURSED: 9 mm ----------> \\
-                case 'M9 Cursed'
-
-                    :
-                        border += '#323232';
-                    break;
-
+                    
+                case 'M9 Cursed':
+                border += '#323232';
+                break;
+                    
                     // <---------- Trowables ----------> \\
-
+                    
                 case 'Frag':
-                        border += '#837516';
-                    break;
-
+                border += '#837516';
+                break;
+                    
                 case 'MIRV':
-                        border += '#940000';
-                    break;
-
+                border += '#940000';
+                break;
+                    
                 case 'Potato':
-                        border += '#958359';
-                    break;
-
+                border += '#958359';
+                break;
+                    
                 case 'Smoke':
-                        border += '#DDDDDD';
-                    break;
-
+                border += '#DDDDDD';
+                break;
+                    
                 case 'Snowball':
-                        border += '#74D4F8';
-                    break;
-
+                border += '#74D4F8';
+                break;
+                    
                 case 'Strobe':
-                        border += '#FFF205';
-                    break;
-
+                border += '#FFF205';
+                break;
+                    
                 case 'Iron Bomb':
-                        border += '#FFF205';
-                    break;
-
-
+                border += '#FFF205';
+                break;
+                
+            
             }
-
+            
             // <---------- GUN END ----------> \\
-
+            
             console.log(border);
-
+            
             this.parentNode.style.border = border;
         }, false);
     }
 })();
 
-// <========== ARMOR ==========> \\
+// <========== ARMOR HUD ==========> \\
 
 (function() {
     'use strict';
@@ -402,80 +391,86 @@
     console.log(elems);
 
     for (var ii = 0; ii < elems.length; ii++) {
-
+        
         elems[ii].addEventListener('DOMSubtreeModified', function() {
             var armorlv = this.textContent;
             var border = 'solid';
-
+            
             switch (armorlv) {
-
+                    
                 default: border = '#000000';
                 border = 'solid';
                 break;
-
+                    
                 case 'Lvl. 0':
-                        border += '#ffffff';
-                    break;
-
+                border += '#ffffff';
+                break;
+                    
                 case 'Lvl. 1':
-                        border += '#ffffff';
-                    break;
-
+                border += '#ffffff';
+                break;
+                    
                 case 'Lvl. 2':
-                        border += '#808080';
-                    break;
-
+                border += '#808080';
+                break;
+                    
                 case 'Lvl. 3':
-                        border += '#0C0C0C';
-                    break;
-
+                border += '#0C0C0C';
+                break;
+                    
                 case 'Lvl. 4':
-                        border += '#FFF00F';
-                    break;
-
+                border += '#FFF00F';
+                break;
+                
             }
-
+            
             console.log(border);
-
+            
             this.parentNode.style.border = border;
         }, false);
     }
 })();
 
 // <========== HUD END ==========> \\
-
 // <========== Streamer Mode ==========> \\
 
 (function() {
-    'use strict';
-
+        'use strict';
+        
     setInterval(function() {
-
-// <---------- Squad Fix ---------->
-
+        
+// <---------- Party Fix ---------->
+        
         if(document.querySelector(`#btn-start-team`)) document.querySelector(`#btn-start-team`).style.display = `block`;
-
+        
 // <---------- Surviv-Related Ads AdBlock ---------->
-
-        let blurElements_ad = document.querySelectorAll(`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90`);
+        
+        let blurElements_ad = document.querySelectorAll
+        
+    // <---Ads Div ID--->
+        
+        // <---Game Page--->
+        (`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90, #ad-block-top`)
+        //#surviv-io_728x90_Leaderboard, #surviv-io_300x250_leaderboard, #surviv-io_728x90_playerprofile, #surviv-io_300x250_playerprofile
+        //<---Ads Div ID END--->
         for(let i = 0; i < blurElements_ad.length; i++) blurElements_ad[i].style.filter = `blur(10px)`;
+        
+// <---------- Partys & Others ---------->
 
-
-// <---------- Streamers;Youtuber ---------->
-
-        let blurElements = document.querySelectorAll(`#team-url, #team-code, .account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
-
+        let blurElements = document.querySelectorAll(`#team-url, #team-code,`); //.account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
+        
         for(let i = 0; i < blurElements.length; i++) blurElements[i].style.filter = `blur(10px)`;
+        
+// <---------- Shadow optimizations ---------->
 
         let removeShadowElements = document.querySelectorAll(`#news-block, #social-share-block, #start-menu, #team-menu`);
         for(let i = 0; i < removeShadowElements.length; i++) removeShadowElements[i].style.boxShadow = ``;
-
+        
     });
 })();
+
 // <========== Streamer Mode End ==========> \\
-
-// <========== Buttons ==========> \\
-
+// <========== Solo Buttons ==========> \\
 // <---------- Function DUO ---------->
 
 (function () {
@@ -492,7 +487,6 @@ document.getElementById("btn-start-team").click();
 }
 
 // <---------- Function DUO ---------->
-
 // <---------- DUO Button ---------->
     var SoloDuo = document.createElement("button");
   SoloDuo.innerHTML = "Play Solo 'Duo'";
@@ -513,7 +507,6 @@ SoloDuo;{
   SoloDuo.style.shadow = "0 5px #408E8B";
         }
 // <---------- DUO Button ---------->
-
 // <---------- DUO Button Click ---------->
 
   window.myFunc = function () {
@@ -526,6 +519,7 @@ reference.parentNode.insertBefore(SoloDuo, reference);
 })();
 
 // <---------- DUO Button Click ---------->
+
 (function () {
 'use strict';
 function SQUAD(){
@@ -540,7 +534,6 @@ document.getElementById("btn-start-team").click();
 }
 
 // <---------- Function SQUAD ---------->
-
 // <---------- SQUAD Button ---------->
     var SoloSquad = document.createElement("button");
   SoloSquad.innerHTML = "Play Solo 'Squad'";
@@ -561,7 +554,6 @@ SoloSquad;{
   SoloSquad.style.shadow = "0 5px #408E8B";
         }
 // <---------- SQUAD Button ---------->
-
 // <---------- SQUAD Button Click ---------->
 
   window.myFunc = function () {
@@ -572,6 +564,6 @@ SoloSquad;{
     var reference = document.getElementById('btn-help');
 reference.parentNode.insertBefore(SoloSquad, reference);
 })();
-// <========== Buttons END==========> \\
 
-// <-########## SCRIPT END ##########->
+// <========== Buttons END==========> \\
+// <-########## SCRIPT END ##########-> \\
