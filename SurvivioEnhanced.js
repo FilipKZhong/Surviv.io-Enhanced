@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Survivio | Enhanced |
-// @version      0.0.9
+// @version      0.1.2.5
 // @icon         https://surviv.io/favicon.ico
-// @description  Surviv.io Enhanced
+// @description  Surviv.io Enhanced | UI-HUD | Menu Buttons | Streamer Mode | Adblocker |
 // @author       Filip K Zhõng
 // @namespace    SurvivEnhanced
 
 // Extra Info
 // Made by: Filip K. Zhõng
-// Version: 0.0.9
+// Version: 0.1.2.5
 // For: Surviv.io
 
 // Support Server: https://discordapp.com/invite/AHZYHxV
@@ -21,6 +21,9 @@
     // This script doesn't contain any hackusations, or code that gives you a unfair advantage
     // The adblur in this script still supports the game, as the ads still appear (even if they are blured out)
     // This script is used through tampermonkey or resource override, if the game patches it, deal with it, it's not a vanilla!
+
+// - Creds:
+    // HUD ; Tint Color to HEX color codes: https://convertingcolors.com/
 
 // <========== MATCH ==========> \\
 
@@ -81,26 +84,46 @@
 // @match        http://c79geyxwmp1zpas3qxbddzrtytffta.ext-twitch.tv/c79geyxwmp1zpas3qxbddzrtytffta/1.0.2/ce940530af57d2615ac39c266fe9679d/index_twitch.html?anchor=panel&language=en&mode=viewer&state=released&platform=web&popout=true*
 // @match        https://c79geyxwmp1zpas3qxbddzrtytffta.ext-twitch.tv/c79geyxwmp1zpas3qxbddzrtytffta/1.0.2/ce940530af57d2615ac39c266fe9679d/index_twitch.html?anchor=panel&language=en&mode=viewer&state=released&platform=web&popout=true*
 
-
 // @grant        none
 
 // ==/UserScript==
-
-// <---------- Notes ----------> \\
-// <--->||mapIds||<--->
-// 0 - Normal
-// 1 - Desert [desertMode]
-// 2 - Woods [woodsMode]
-// 3 - 50v50 [factionMode]
-// 4 - Potato [potatoMode]
-// 5 - Savannah [sniperMode]
-// 6 - Halloween [N/A]
-// 7 - Cobalt[perkMode]
-// <--->||getGameModeStyles||<--->
-// 1 - solo
-// 2 - duo
-// 4 - squad
-
+// <==========FailSafe==========> \\
+(function() {
+    'use strict';
+if (location.protocol !== "https:")
+   {location.protocol = "https:";}
+})();
+// <========== Menue Index ==========> \\
+function setaps(eID){
+    if(document.getElementById(eID) && eID!="ad-block-left" && eID!="surviv-io_728x90")
+    {document.getElementById(eID).insertAdjacentHTML('beforeend', '');}
+    if(document.getElementById(eID) && eID=="surviv-io_728x90")
+    {document.getElementById(eID).insertAdjacentHTML('beforeend', '');}
+    if(document.getElementById(eID) && eID=="ad-block-left"){
+        var before,now,fps
+        before=Date.now();
+        fps=0;
+        requestAnimationFrame(
+            function loop(){
+                now=Date.now();
+                fps=Math.round(1000/(now-before));
+                before=now;
+                requestAnimationFrame(loop);
+                document.getElementById(eID).innerHTML =
+                    ("<p><b><u>Surviv.io Enhanced</u></b> <i>by Filip K. Zhõng</i></p><p>Version 0.1.2.5 | FPS: "+fps+"</p>");
+            });}}
+var yc = setInterval(function() {
+    var setA=document.getElementsByClassName("ad-block-leaderboard-bottom")[0];
+    setaps("start-top-left");
+    setaps("leaderboard-front");
+    setaps("ad-block-left");
+    setaps("start-bottom-left");
+    setaps("adunit");
+    setaps("ui-stats-ad-container-desktop");
+    setaps("surviv-io_728x90")
+    clearInterval(yc);
+},1000);
+// <========== Menue Index END ==========> \\
 // <========== GUN HUD ==========> \\
 (function() {
     'use strict';
@@ -111,20 +134,14 @@
             var weaponName = this.textContent;
             var border = 'solid';
             switch (weaponName) {
-                // <---------- Default ----------> \\
+                    // <---------- Default ----------> \\
                 default:
-                    border = '#ffffff';
+                    border = '#FFFFFF';
                     border = 'solid';
                     break;
-                // <---------- Melees ----------> \\
-                    //Default HEX Classes
-                    // Knifes: #959595 || #76787A
-                    // Knuckles:
-                    // Katanas:
-                    // Axes: #8B5123
-// <------------------------------------------------------------> \\
+// <------------------------------MELEES------------------------------> \\
                 case "Fists":
-                    border += '#ffffff';
+                    border += '#FFFFFF';
                     break;
                     // <-----Karmabit----->
                 case "Karambit":
@@ -230,30 +247,23 @@
                     border += '#461904';
                     break;
                     // <-----Cobalt----->
-// <---NOTES--->
-// Scout: 11326819 || #acd563 ||
-// Sniper: 9293531 || #8dcedb ||
-// Medic: 14449116 || #dc79dc ||
-// Demo: 13068903 || #c76a67 ||
-// Assault: 14339929 || #dacf59 ||
-// Tank: 15382883 || #eab963 ||
                 case "Spade": //Trench Spade
-                    border +='#dacf59';
+                    border +='#DACF59';
                     break;
                 case "Crowbar": //Scouting Crowbar
                     border +='#ACD563';
                     break;
                 case "Kukri": //Marksman's Recurve
-                    border +='#8dcedb';
+                    border +='#8DCEDB';
                     break;
                 case "Bonesaw": //The Separator
-                    border +='#dc79dc';
+                    border +='#DC79DC';
                     break;
                 case "Katana": //Hakai no Katana
-                    border +='#c76a67';
+                    border +='#C76A67';
                     break;
                 case "War Hammer": //Panzerhammer
-                    border +='#eab963';
+                    border +='#EAB963';
                     break;
                     // <===GUNS===>
                     // <---------- YELLOW: 9mm ----------> \\
@@ -321,14 +331,13 @@
                     break;
                     // <---------- FLARE ----------> \\
                 case 'Flare Gun':
-                border += '#D44600';
+                    border += '#D44600';
                     break;
                     // <---------- .50 AE ----------> \\
                 case 'DEagle 50':
                     border += '#292929';
                     break;
                     // <---------- .308 Subsonic ----------> \\
-
                 case 'AWM-S':
                 case 'Mk 20 SSR':
                     border += '#465000';
@@ -352,7 +361,7 @@
                     border += '#958359';
                     break;
                 case 'Smoke':
-                border += '#DDDDDD';
+                    border += '#DDDDDD';
                     break;
                 case 'Snowball':
                     border += '#74D4F8';
@@ -361,7 +370,9 @@
                     border += '#FFF205';
                     break;
                 case 'Iron Bomb':
-                    border += '#FFF205';
+                    // WorldImg: #FFF205
+                    // LootImg: #00FF00
+                    border += '#00FF00';
                     break;
             }
             // <---------- GUN END ----------> \\
@@ -384,10 +395,10 @@
                     border = 'solid';
                     break;
                 case 'Lvl. 0':
-                    border += '#ffffff';
+                    border += '#FFFFFF';
                     break;
                 case 'Lvl. 1':
-                    border += '#ffffff';
+                    border += '#FFFFFF';
                     break;
                 case 'Lvl. 2':
                     border += '#808080';
@@ -400,7 +411,6 @@
                     break;
             }
             console.log(border);
-
             this.parentNode.style.border = border;
         }, false);
     }
@@ -408,126 +418,202 @@
 // <========== ARMOR END ==========> \\
 // <========== HUD END ==========> \\
 // <========== Streamer Mode ==========> \\
-
 (function() {
-        'use strict';
+    'use strict';
     setInterval(function() {
-// <---------- Party Fix ---------->
+        // <---------- Party Fix ---------->
         if(document.querySelector(`#btn-start-team`)) document.querySelector(`#btn-start-team`).style.display = "block";
-// <---------- Surviv-Related Ads AdBlock ---------->
+        // <---------- Surviv-Related Ads AdBlock ---------->
         let blurElements_ad = document.querySelectorAll
-    // <---Ads Div ID--->
-        // <---Game Page--->
-        (`#ad-block-left, #surviv-io_300x600, #surviv-io_300x250, #surviv-io_728x90, #ad-block-top, #surviv-io_300x250_2, #surviv-io_300x250_mobile_2`);
-        //#surviv-io_728x90_Leaderboard, #surviv-io_300x250_leaderboard, #surviv-io_728x90_playerprofile, #surviv-io_300x250_playerprofile
-        //<---Ads Div ID END--->
+        (`#surviv-io_728x90, #surviv-io_300x600, #surviv-io_300x250, #ad-block-top, #surviv-io_300x250_2, #surviv-io_300x250_mobile_2`);
         for(let i = 0; i < blurElements_ad.length; i++)
-        blurElements_ad[i].style.filter = "blur(10px) opacity(75%)";
-// <---------- Partys & Others ---------->
+            blurElements_ad[i].remove();
+        // <---------- Partys & Others ---------->
         document.querySelector(`#background, #modal-customize`).style.filter = "";
-        let blurElements = document.querySelectorAll(`#team-url, #team-code,`); //.account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
+        // <---------- Partys & Others ---------->
+        let blurElements = document.querySelectorAll(`#team-url, #team-code`);
+        //.account-player-name, .account-avatar, .featured-streamer > a, #featured-youtuber a`)
         for(let i = 0; i < blurElements.length; i++)
-        blurElements[i].style.filter = "blur(10px)";
-// <---------- Shadow optimizations ---------->
+            blurElements[i].style.filter = "blur(10px)";
+        // <---------- Shadow optimizations ---------->
         let removeShadowElements = document.querySelectorAll(`#news-block, #social-share-block, #start-menu, #team-menu, #ad-block-left`);
         for(let i = 0; i < removeShadowElements.length; i++)
-        removeShadowElements[i].style.boxShadow = "";
-    });
-})();
+            removeShadowElements[i].style.boxShadow = "";
+    });})();
 // <========== Streamer Mode End ==========> \\
 // <========== Solo Buttons ==========> \\
 // <---------- Function DUO ---------->
-
 (function () {
-'use strict';
-function DUO(){
-document.getElementById("btn-create-team").click();
-    setTimeout(function(){
-document.getElementById("btn-team-queue-mode-1").click();
-document.getElementById("btn-team-fill-none").click();
-document.getElementById("btn-start-team").click();
-}
-,750);
-
-}
-
-// <---------- Function DUO ---------->
-// <---------- DUO Button ---------->
+    'use strict';
+    function DUO(){
+        document.getElementById("btn-create-team").click();
+        setTimeout(function(){
+            document.getElementById("btn-team-queue-mode-1").click();
+            document.getElementById("btn-team-fill-none").click();
+            document.getElementById("btn-start-team").click();
+        },750);}
+    // <---------- DUO Button ---------->
     var SoloDuo = document.createElement("button");
-  SoloDuo.innerHTML = "Play Solo 'Duo'";
-  SoloDuo.setAttribute("id", "btn-start-solo btns-quick-start");
-  SoloDuo.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
-//height: 40px;
-//width: 128px;
-
-SoloDuo;{
-  SoloDuo.style.align = "center";
-  SoloDuo.style.background = "#50AFAB";
-  SoloDuo.style.border = "#408E8B";
-  SoloDuo.style.color = "#E5F1F0";
-  SoloDuo.style.cursor = "pointer";
-  SoloDuo.style.width = "50%";
-  SoloDuo.style.radius = "15px";
-  SoloDuo.style.shadow = "0 5px #408E8B";
-        }
-// <---------- DUO Button ---------->
-// <---------- DUO Button Click ---------->
-
-  window.myFunc = function () {
-  DUO();
-  };
-  SoloDuo.addEventListener('click', window.myFunc);
-  document.getElementById("btns-quick-start").parentNode.appendChild(SoloDuo);
+    SoloDuo.innerHTML = "Play Solo 'Duo'";
+    SoloDuo.setAttribute("id", "btn-start-solo btns-quick-start");
+    SoloDuo.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
+    SoloDuo;{
+        SoloDuo.style.align = "center";
+        SoloDuo.style.background = "#50AFAB";
+        SoloDuo.style.border = "#408E8B";
+        SoloDuo.style.color = "#E5F1F0";
+        SoloDuo.style.cursor = "pointer";
+        SoloDuo.style.width = "50%";
+        SoloDuo.style.radius = "15px";
+        SoloDuo.style.shadow = "0 5px #408E8B";
+    }
+    // <---------- DUO Button Click ---------->
+    window.myFunc = function () {
+        DUO();};
+    SoloDuo.addEventListener('click', window.myFunc);
+    document.getElementById("btns-quick-start").parentNode.appendChild(SoloDuo);
     var reference = document.getElementById('btn-help');
-reference.parentNode.insertBefore(SoloDuo, reference);
+    reference.parentNode.insertBefore(SoloDuo,reference);
 })();
-
-// <---------- DUO Button Click ---------->
-
-(function () {
-'use strict';
-function SQUAD(){
-document.getElementById("btn-create-team").click();
-    setTimeout(function(){
-document.getElementById("btn-team-queue-mode-2").click();
-document.getElementById("btn-team-fill-none").click();
-document.getElementById("btn-start-team").click();
-}
-,750);
-
-}
-
 // <---------- Function SQUAD ---------->
-// <---------- SQUAD Button ---------->
+(function () {
+    'use strict';
+    function SQUAD(){
+        document.getElementById("btn-create-team").click();
+        setTimeout(function(){
+            document.getElementById("btn-team-queue-mode-2").click();
+            document.getElementById("btn-team-fill-none").click();
+            document.getElementById("btn-start-team").click();
+        },750);}
+    // <---------- SQUAD Button ---------->
     var SoloSquad = document.createElement("button");
-  SoloSquad.innerHTML = "Play Solo 'Squad'";
-  SoloSquad.setAttribute("id", "btn-start-solo btns-quick-start");
-  SoloSquad.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
-
-//height: 40px;
-//width: 128px;
-
-SoloSquad;{
-  SoloSquad.style.align = "center";
-  SoloSquad.style.background = "#50AFAB";
-  SoloSquad.style.border = "#408E8B";
-  SoloSquad.style.color = "#E5F1F0";
-  SoloSquad.style.cursor = "pointer";
-  SoloSquad.style.width = "50%";
-  SoloSquad.style.radius = "15px";
-  SoloSquad.style.shadow = "0 5px #408E8B";
-        }
-// <---------- SQUAD Button ---------->
-// <---------- SQUAD Button Click ---------->
-
-  window.myFunc = function () {
-  SQUAD();
-  };
-  SoloSquad.addEventListener('click', window.myFunc);
-  document.getElementById("btns-quick-start").parentNode.appendChild(SoloSquad);
+    SoloSquad.innerHTML = "Play Solo 'Squad'";
+    SoloSquad.setAttribute("id", "btn-start-solo btns-quick-start");
+    SoloSquad.setAttribute("class", "btn-darken menu-option btn-team-option menu-column menu-block");
+    SoloSquad;{
+        SoloSquad.style.align = "center";
+        SoloSquad.style.background = "#50AFAB";
+        SoloSquad.style.border = "#408E8B";
+        SoloSquad.style.color = "#E5F1F0";
+        SoloSquad.style.cursor = "pointer";
+        SoloSquad.style.width = "50%";
+        SoloSquad.style.radius = "15px";
+        SoloSquad.style.shadow = "0 5px #408E8B";
+    }
+    // <---------- SQUAD Button Click ---------->
+    window.myFunc = function () {
+        SQUAD();};
+    SoloSquad.addEventListener('click', window.myFunc);
+    document.getElementById("btns-quick-start").parentNode.appendChild(SoloSquad);
     var reference = document.getElementById('btn-help');
-reference.parentNode.insertBefore(SoloSquad, reference);
+    reference.parentNode.insertBefore(SoloSquad,reference);
 })();
-
 // <========== Buttons END==========> \\
+// ==============================NOTES==============================> \\
+// <---mapId--->
+    // 0 - Normal
+    // 1 - Desert [desertMode]
+    // 2 - Woods [woodsMode]
+    // 3 - 50v50 [factionMode]
+    // 4 - Potato [potatoMode]
+    // 5 - Savannah [sniperMode]
+    // 6 - Halloween [N/A]
+    // 7 - Cobalt[perkMode]
+//
+// <---GameMode--->
+// [1] - solo
+// [2] - duo
+// [4] - squad
+//
+// <---Colors--->
+//
+// -> Code references: HEX UPPER CASE
+// -> Code references: "Tint || Hex"
+//
+// |---> groupColors
+//
+// [YELLOW]  16776960 || #FFFF00
+// [PINK]    16711935 || #FF00FF
+// [CYAN]    65535    || #00FFFF
+// [ORANGE]  16733184 || #FF5400
+//
+// |---> teamColors
+//
+// [RED]  13369344 || #CC0000
+// [BLUE] 32511    || #007EFF
+//
+// |---> Cobalt Classes
+// Scout: 11326819    || #ACD563 ||
+// Sniper: 9293531    || #8DCEDB ||
+// Medic: 14449116    || #DC79DC ||
+// Demo: 13068903     || #C76A67 ||
+// Assault: 14339929  || #DACF59 ||
+// Tank: 15382883     || #EAB963 ||
+//
+// |---> TRACES
+//
+// [Yellow] "9mm"
+// regular: 16704198   || #FEE2C6
+// saturated: 16767411 || #FFD9B3
+// chambered: 16744192 || #FF7F00
+//
+// [Overpressure 9mm] "9mm_suppressed_bonus"
+// regular: 16704198   || #FEE2C6
+// saturated: 16767411 || #FFD9B3
+// chambered: 16744192 || #FF7F00
+//
+// [Cursed 9mm] "9mm_cursed"
+// regular: 1247488   || #130900
+// saturated: 1247488 || #130900
+// chambered: 1247488 || #130900
+//
+// [Blue] "762mm"
+// regular: 12965630   || #C5D6FE
+// saturated: 11257087 || #ABC4FF
+// chambered: 19711    || #004CFF
+//
+// [Red] "12gauge"
+// regular: 16702684   || #FEDCDC
+// saturated: 16702684 || #FEDCDC
+// chambered: 16711680 || #FF0000
+//
+// [Green] "556mm"
+// regular: 11141010   || #A9FF92
+// saturated: 11141010 || #A9FF92
+// chambered: 3604224  || #36FF00
+//
+// [50.AE] "50AE"
+// regular: 16773256    || #FFF088
+// saturated: 16773256  || #FFF088
+// chambered: 16768768  || #FFDF00
+//
+// [Subsonic] "308sub"
+// regular: 2435840   || #252B00
+// saturated: 4608e3  || ?
+// chambered: 1250816 || #131600
+//
+// [Flare] "flare"
+// regular: 14869218   || #E2E2E2
+// saturated: 14869218 || #E2E2E2
+// chambered: 12895428 || #C4C4C4
+//
+// [Purple] "45acp"
+// regular: 15515391   || #ECBEFF
+// saturated: 15183103 || #E7ACFF
+// chambered: 11862271 || #B500FF
+//
+// [Sharpnel] "shrapnel"
+// regular: 3355443    || #333333
+// saturated: 3355443  || #333333
+//
+// [Frag] "frag"
+// regular: 13303808   || #CB0000
+// saturated: 13303808 || #CB0000
+//
+// [Potato] "potato"
+// regular: 0   || N/A
+// saturated: 0 || N/A
+// chambered: 0 || N/A
+//
+// <==============================NOTES-END==============================> \\
 // <-########## SCRIPT END ##########-> \\
