@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Survivio | Enhanced |
-// @version      0.1.2.5
+// @version      0.1.2.6
 // @icon         https://surviv.io/favicon.ico
 // @description  Surviv.io Enhanced | UI-HUD | Menu Buttons | Streamer Mode | Adblocker |
 // @author       Filip K Zhõng
@@ -8,22 +8,24 @@
 
 // Extra Info
 // Made by: Filip K. Zhõng
-// Version: 0.1.2.5
+// Version: 0.1.2.6
 // For: Surviv.io
 
 // Support Server: https://discordapp.com/invite/AHZYHxV
 
 // - Note:
-    // 3rd party extensions (or code changes) is not official or supported by the developers of the game,
-    // they take no responsibility for 3rd party and doesn't recommend it neither,
-    // all usage of it is on own risk and extensions THAT GIVES YOU A ADVANTAGE is not allowed!
+// 3rd party extensions (or code changes) is not official or supported by the developers of the game,
+// they take no responsibility for 3rd party and doesn't recommend it neither,
+// all usage of it is on own risk and extensions THAT GIVES YOU A ADVANTAGE is not allowed!
+
+
 // - Disclaim:
-    // This script doesn't contain any hackusations, or code that gives you a unfair advantage
-    // The adblur in this script still supports the game, as the ads still appear (even if they are blured out)
-    // This script is used through tampermonkey or resource override, if the game patches it, deal with it, it's not a vanilla!
+// This script doesn't contain any hackusations, or code that gives you a unfair advantage
+// The adblur in this script still supports the game, as the ads still appear (even if they are blured out)
+// This script is used through tampermonkey or resource override, if the game patches it, deal with it, it's not a vanilla!
 
 // - Creds:
-    // HUD ; Tint Color to HEX color codes: https://convertingcolors.com/
+// HUD ; Tint Color to HEX color codes: https://convertingcolors.com/
 
 // <========== MATCH ==========> \\
 
@@ -88,10 +90,11 @@
 
 // ==/UserScript==
 // <==========FailSafe==========> \\
+// Not blocked in school: https://randomblock1.github.io/unblock-survivio/survivio.html
 (function() {
     'use strict';
-if (location.protocol !== "https:")
-   {location.protocol = "https:";}
+    if (location.protocol !== "https:")
+{location.protocol = "https:";}
 })();
 // <========== Menue Index ==========> \\
 function setaps(eID){
@@ -110,9 +113,9 @@ function setaps(eID){
                 before=now;
                 requestAnimationFrame(loop);
                 document.getElementById(eID).innerHTML =
-                    ("<p><b><u>Surviv.io Enhanced</u></b> <i>by Filip K. Zhõng</i></p><p>Version 0.1.2.5 | FPS: "+fps+"</p>");
+                    ("<p><b><u>Surviv.io Enhanced</u></b> <i>by Filip K. Zhõng</i></p><p>Version 0.1.2.5 | FPS: "+fps+"</p><p>Download it on either <a href='https://greasyfork.org/en/scripts/392896-survivio-enhanced'target='_blank'>Greasyfork</a> or on <a href='https://github.com/FilipKZhong/Surviv.io-Enhanced'target='_blank'>Github</a>.</p><p>For help about the extension you can join my <a href='https://discordapp.com/invite/AHZYHxV'target='_blank'>Discord Server</a></p><p>Click <a href='https://pastebin.com/raw/ym55Q4Le'target='_blank'>HERE</a> for more info!</p><p><i><sup>If the links is unclickable, try Right-Click and then click 'open in new window'</sup></i></p>");
             });}}
-var yc = setInterval(function() {
+var a = setInterval(function() {
     var setA=document.getElementsByClassName("ad-block-leaderboard-bottom")[0];
     setaps("start-top-left");
     setaps("leaderboard-front");
@@ -121,7 +124,7 @@ var yc = setInterval(function() {
     setaps("adunit");
     setaps("ui-stats-ad-container-desktop");
     setaps("surviv-io_728x90")
-    clearInterval(yc);
+    clearInterval(a);
 },1000);
 // <========== Menue Index END ==========> \\
 // <========== GUN HUD ==========> \\
