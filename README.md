@@ -1,9 +1,28 @@
-**! READ ME !**
-*Enhanced features for Surviv.io*
- - Solo Duo Button
- - Solo Squad Button
- - Custom HUD for the Guns
- - Custom HUD for the Armor
- - Streamer Mode to blur (still shows) ads [To support the game]
+**! READ !**
 
-[GreasyFox] (https://greasyfork.org/en/scripts/392896-survivio-enhanced)
+* * *
+
+_Enhanced features for Surviv.io by Filip K. Zhõng_
+
+* * *
+
+**Features:**
+
+*   HUD:
+    *   `Guns`
+    *   `Armor`
+*   Menu buttons:
+
+    *   `Solo Duo Button`-`[Quickstart]`
+    *   `Solo Squad Button`-`[Quickstart]`
+*   Streamer Mode:
+
+    *   `Blur`
+
+    _`Advertises`_
+
+    _`"Streaming Now"`_
+
+    _`Featured YouTuber`_
+
+    _`Group Link(s)`_
